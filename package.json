@@ -1,0 +1,40 @@
+{
+  "name": "dlr-list-filter",
+  "version": "0.0.0",
+  "description": "Filterable and sortable high level list react component",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape ./spec",
+    "build": "rm -rf lib && babel lib --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/mattstyles/dlr-list-filter.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "list",
+    "filter",
+    "sort",
+    "dotlabel"
+  ],
+  "author": "Matt Styles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattstyles/dlr-list-filter/issues"
+  },
+  "homepage": "https://github.com/mattstyles/dlr-list-filter",
+  "dependencies": {
+    "classnames": "^1.2.2",
+    "eventemitter3": "^1.0.1",
+    "react": "^0.13.2"
+  },
+  "devDependencies": {
+    "babel": "^5.1.13",
+    "glob": "^5.0.5",
+    "tape": "^4.0.0"
+  }
+}
