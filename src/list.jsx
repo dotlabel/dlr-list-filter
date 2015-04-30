@@ -15,12 +15,19 @@ export default class List extends React.Component {
 
     onClick = () => {
         this.setState({
-            myStateProp: Math.random() * 1000
+            myStateProp: 1000
         })
     }
 
+
     constructor( props ) {
         super( props )
+
+        function arg() {
+
+        }
+
+        arg()
     }
 
     render() {

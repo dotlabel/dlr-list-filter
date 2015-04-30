@@ -6,6 +6,7 @@
   "scripts": {
     "test": "tape ./spec",
     "pretest": "npm run build",
+    "lint": "eslint ./src/*",
     "clean": "rm -rf lib && mkdir lib",
     "build": "babel src --out-dir lib --stage 0",
     "prebuild": "npm run clean",
@@ -37,6 +38,8 @@
   },
   "devDependencies": {
     "babel": "^5.1.13",
+    "babel-eslint": "^3.0.1",
+    "eslint": "^0.20.0",
     "glob": "^5.0.5",
     "tape": "^4.0.0"
   }
