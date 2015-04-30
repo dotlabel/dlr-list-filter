@@ -7,9 +7,9 @@
     "test": "tape ./spec",
     "pretest": "npm run build",
     "clean": "rm -rf lib && mkdir lib",
-    "build": "babel lib --out-dir lib",
+    "build": "babel src --out-dir lib --stage 0",
     "prebuild": "npm run clean",
-    "watch": "babel --watch src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib --stage 0",
     "prepublish": "npm run build"
   },
   "repository": {
