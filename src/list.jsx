@@ -1,40 +1,62 @@
 import React from 'react'
+import ListItem from './item'
+import Filters from './filters'
 
 export default class List extends React.Component {
     static propTypes = {
-        label: React.PropTypes.string
+        // items: React.PropTypes.array.isRequired
     }
 
     static defaultProps = {
-        label: 'hello list'
+
     }
 
     state = {
-        myStateProp: 'hello autobinding'
+        filter: false
     }
-
-    onClick = () => {
-        this.setState({
-            myStateProp: 1000
-        })
-    }
-
 
     constructor( props ) {
         super( props )
 
-        function arg() {
+        this.items = [
+            {
+                name: 'aaa',
+                active: true
+            },
+            {
+                name: 'bbb',
+                active: true
+            },
+            {
+                name: 'ccc',
+                active: false
+            },
+            {
+                name: 'ddd',
+                active: true
+            }
+        ]
+    }
 
-        }
-
-        arg()
+    onFilter = ( active ) => {
+        this.setState({
+            filter: active
+        })
     }
 
     render() {
+        var items = this.items.filter( item => {
+            return item.active === this.state.filter
+        }).map( item => {
+            return <ListItem {...item} />
+        })
+
         return (
             <div>
-                <h1>{ this.props.label } <span>{ this.state.myStateProp }</span></h1>
-                <button onClick={ this.onClick }>Click me</button>
+                <Filters onFilter={ this.onFilter } />
+                <ul>
+                    { items }
+                </ul>
             </div>
         )
     }
