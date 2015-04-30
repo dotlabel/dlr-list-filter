@@ -2,10 +2,13 @@
   "name": "dlr-list-filter",
   "version": "0.0.0",
   "description": "Filterable and sortable high level list react component",
-  "main": "index.js",
+  "main": "lib/",
   "scripts": {
     "test": "tape ./spec",
-    "build": "rm -rf lib && babel lib --out-dir lib",
+    "pretest": "npm run build",
+    "clean": "rm -rf lib && mkdir lib",
+    "build": "babel lib --out-dir lib",
+    "prebuild": "npm run clean",
     "watch": "babel --watch src --out-dir lib",
     "prepublish": "npm run build"
   },
