@@ -26,10 +26,12 @@ export default class FilterItem extends React.Component {
             'active': this.props.active
         })
 
+        console.log( this.props )
+
         return (
             <li key={ this.props.key } className={ classes }>
                 <button onClick={ this.props.onClick }>
-                    <span>{ this.props.name }</span>
+                    <span>{ this.props.id }</span>
                     <span>{ this.props.active ? '✔︎' : '✘' }</span>
                 </button>
             </li>

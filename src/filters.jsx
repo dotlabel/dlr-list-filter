@@ -15,14 +15,31 @@ export default class Filters extends React.Component {
      * React.PropType checking
      */
     static propTypes = {
+        /**
+         * List of properties to filter by.
+         * Empty list denotes no filtering.
+         * @type <Array:FilterStruct>
+         * @required
+         */
         filters: React.PropTypes.array.isRequired,
+
+        /**
+         * Fired when the filter is actioned
+         * @type <Function>
+         * @required
+         */
         onFilter: React.PropTypes.func.isRequired,
+
+        /**
+         * Custom filter item template
+         * @type <FilterItem>
+         */
         FilterTemplate: React.PropTypes.any
     }
 
     /**
-     * @static
      * Default React properties
+     * @static
      */
     static defaultProps = {
         FilterTemplate: FilterButton
@@ -43,7 +60,7 @@ export default class Filters extends React.Component {
         // Create filter buttons and route click event
         var filterButtons = this.props.filters.map( ( filter, index ) => {
             var clickHandler = event => {
-                this.props.onFilter( filter.name )
+                this.props.onFilter( filter.id )
             }
             return (
                 <this.props.FilterTemplate

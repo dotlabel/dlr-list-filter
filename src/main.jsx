@@ -25,81 +25,72 @@ import React from 'react'
 import ListItem from './tmpl/item'
 import Filters from './filters'
 import List from './list'
+import FilterStruct from './util/filterStruct'
 
-
-/**
- * _createFilter
- * @private
- * @static
- * @param filter <string>
- */
-function _createFilter( filter: string ) {
-    return {
-        name: filter,
-        active: false
-    }
-}
 
 
 /**
- * List
+ * Main List Component
  * ---
  * @class
  * @extend React.Component
  */
 export default class Main extends React.Component {
     /**
-     * @static
      * React.PropType checking
+     * @static
      */
     static propTypes = {
         /**
+         * Master list of objects. Passed to <List />.
          * @type <Array:Object>
          * @required
-         * Master list of objects. Passed to <List />.
          */
         items: React.PropTypes.array.isRequired,
 
         /**
-         * @type <Array:String>
-         * @required
          * Property names to filter by. Transformed into FilterObjects and
          * passed to <Filters />
+         * @type <Array:String>
+         * @required
          */
         filters: React.PropTypes.array.isRequired,
 
         /**
-         * @type <ListItem>
          * Custom item rendering component
+         * @type <ListItem>
          */
         ItemTemplate: React.PropTypes.any,
 
         /**
-         * @type <FilterItem>
          * Custom filter item rendering component
+         * @type <FilterItem>
          */
         FilterTemplate: React.PropTypes.any
     }
 
     /**
-     * @static
      * Default React properties
+     * @static
      */
     static defaultProps = {
         ItemTemplate: ListItem
     }
 
     /**
+     * Class state object
      * @property
      * @type <Object>
-     * Class state object
-     *   ::`filters`
-     *   Mapped from filters property declaration
-     *   @type <Array:Object>
-     *   @example [{ name: 'name', active: false }, { name: 'another', active: true }]
      */
     state = {
-        filters: this.props.filters.map( _createFilter )
+        /**
+         * Mapped from filters property declaration
+         * @type <Array:Object>
+         * @example [{ id: 'foo', active: false }, { id: 'bar', active: true }]
+         */
+        filters: this.props.filters.map( filter => {
+            return new FilterStruct( filter )
+        })
     }
 
     /**
@@ -120,7 +111,7 @@ export default class Main extends React.Component {
         this.setState({
             filters: this.state.filters.map( filter => {
                 // Bail on other filters
-                if ( filter.name !== toggleFilter ) {
+                if ( filter.id !== toggleFilter ) {
                     return filter
                 }
 
@@ -129,6 +120,7 @@ export default class Main extends React.Component {
                 return filter
             })
         })
+        console.log( this.state )
     }
 
     /**

@@ -18,35 +18,35 @@ import ListItem from './tmpl/item'
  */
 export default class List extends React.Component {
     /**
-     * @static
      * React.PropType checking
+     * @static
      */
     static propTypes = {
         /**
+         * Master list of items
          * @type <Array:Object>
          * @required
-         * Master list of items
          */
         items: React.PropTypes.array.isRequired,
 
         /**
-         * @type <Array:String>
-         * @required
          * Active filters to include in the list.
          * Items that have the filter as a property pass the filtering algorithm.
+         * @type <Array:String>
+         * @required
          */
         filters: React.PropTypes.array.isRequired,
 
         /**
-         * @type <ListItem>
          * Custom component to use for list items
+         * @type <ListItem>
          */
         ItemTemplate: React.PropTypes.any
     }
 
     /**
-     * @static
      * Default React properties
+     * @static
      */
     static defaultProps = {
         ItemTemplate: ListItem
@@ -74,7 +74,7 @@ export default class List extends React.Component {
             var active = false
 
             this.props.filters.forEach( filter => {
-                if ( item.hasOwnProperty( filter.name ) && item[ filter.name ] ) {
+                if ( item.hasOwnProperty( filter.id ) && item[ filter.id ] ) {
                     active = true
                 }
             })
