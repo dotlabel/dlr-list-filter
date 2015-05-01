@@ -22,7 +22,7 @@ export default class ListItem extends React.Component {
      */
     render() {
         return (
-            <li>{ this.props.name }</li>
+            <li className="DLR-List-Item">{ this.props.name }</li>
         )
     }
 }

@@ -1,10 +1,25 @@
 import React from 'react'
 
-export default class DefaultFilterButton extends React.Component {
+
+/**
+ * FilterItem
+ * ---
+ * Individual item template component for filter buttons
+ * @class
+ * @extends React.Component
+ */
+export default class FilterItem extends React.Component {
+    /**
+     * @constructs
+     * @param props <Object> React property init
+     */
     constructor( props ) {
         super( props )
     }
 
+    /**
+     * React render lifecycle method
+     */
     render() {
         var classes = classNames({
             'DLR-List-FilterItem': true,
