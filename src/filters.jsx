@@ -1,40 +1,49 @@
 import React from 'react'
 
+
+function _createFilter( filter ) {
+    return {
+        name: filter,
+        active: false
+    }
+}
+
+
 export default class Filters extends React.Component {
     static propTypes = {
-        text: React.PropTypes.string,
+        filters: React.PropTypes.array.isRequired,
         onFilter: React.PropTypes.func.isRequired
     }
 
     static defaultProps = {
-        text: 'Filter'
+
     }
 
-    state = {
-        active: false
-    }
 
     constructor( props ) {
         super( props )
     }
 
-    onClick = () => {
-        this.setState({
-            active: !this.state.active
-        })
-        this.props.onFilter( this.state.active )
-    }
 
     render() {
-
-        var active = this.state.active
-            ? '✔︎'
-            : '✘'
+        var filterButtons = this.props.filters.map( filter => {
+            var clickHandler = event => {
+                this.props.onFilter( filter.name )
+            }
+            return (
+                <li>
+                    <button onClick={ clickHandler }>
+                        <span>{ filter.name }</span>
+                        <span>{ filter.active ? '✔︎' : '✘' }</span>
+                    </button>
+                </li>
+            )
+        })
 
         return (
-            <div>
-                <button onClick={ this.onClick }>{ this.props.text } <span>{ active }</span></button>
-            </div>
+            <ul>
+                { filterButtons }
+            </ul>
         )
     }
 }
