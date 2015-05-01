@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FilterButton from './tmpl/filter'
+import FilterItem from './tmpl/filter'
 
 /**
  * Filters
@@ -42,7 +42,7 @@ export default class Filters extends React.Component {
      * @static
      */
     static defaultProps = {
-        FilterTemplate: FilterButton
+        FilterTemplate: FilterItem
     }
 
     /**
@@ -58,7 +58,7 @@ export default class Filters extends React.Component {
      */
     render() {
         // Create filter buttons and route click event
-        var filterButtons = this.props.filters.map( ( filter, index ) => {
+        var filterItems = this.props.filters.map( ( filter, index ) => {
             var clickHandler = event => {
                 this.props.onFilter( filter.id )
             }
@@ -73,7 +73,7 @@ export default class Filters extends React.Component {
 
         return (
             <ul className="DLR-List-FilterList">
-                { filterButtons }
+                { filterItems }
             </ul>
         )
     }

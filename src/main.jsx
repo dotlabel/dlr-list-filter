@@ -22,10 +22,13 @@
 
 
 import React from 'react'
-import ListItem from './tmpl/item'
 import Filters from './filters'
 import List from './list'
+
 import FilterStruct from './util/filterStruct'
+import ListItem from './tmpl/item'
+import FilterItem from './tmpl/filter'
+
 
 
 
@@ -74,7 +77,8 @@ export default class Main extends React.Component {
      * @static
      */
     static defaultProps = {
-        ItemTemplate: ListItem
+        ItemTemplate: ListItem,
+        FilterTemplate: FilterItem
     }
 
     /**
@@ -120,7 +124,6 @@ export default class Main extends React.Component {
                 return filter
             })
         })
-        console.log( this.state )
     }
 
     /**
