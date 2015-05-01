@@ -13,6 +13,19 @@ npm i -S babel dlr-list-filter
 import 'babel/polyfill'
 import { List } from 'dlr-list-filter'
 
+var items = [
+  {
+    name: 'foo',
+    filterable: true
+  },
+  {
+    name: 'bar',
+    filterable: false
+  }
+]
+
+var filters = [ 'filterable' ]
+
 class App extends React.Component {
   constructor( props ) {
     super( props )
@@ -20,8 +33,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <List />
+      <List
+        items={ items }
+        filters={ filters }
+      />
     )
   }
 }
+
+React.render( <App />, document.body )
 ```
