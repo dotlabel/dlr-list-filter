@@ -8,9 +8,9 @@
     "pretest": "npm run build",
     "lint": "eslint ./src/*",
     "clean": "rm -rf lib && mkdir lib",
-    "build": "babel src --out-dir lib --stage 0",
+    "build": "babel src --out-dir lib --optional es7.classProperties",
     "prebuild": "npm run clean",
-    "watch": "babel --watch src --out-dir lib --stage 0",
+    "watch": "babel --watch src --out-dir lib --optional es7.classProperties",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -39,6 +39,7 @@
   "devDependencies": {
     "babel": "^5.1.13",
     "babel-eslint": "^3.0.1",
+    "babel-plugin-typecheck": "0.0.1",
     "eslint": "^0.20.0",
     "glob": "^5.0.5",
     "tape": "^4.0.0"
