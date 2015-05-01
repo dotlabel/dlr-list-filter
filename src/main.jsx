@@ -69,7 +69,13 @@ export default class Main extends React.Component {
          * Custom filter item rendering component
          * @type <FilterItem>
          */
-        FilterTemplate: React.PropTypes.any
+        FilterTemplate: React.PropTypes.any,
+
+        /**
+         * Custom filtering function
+         * @type <function>
+         */
+        filterFunction: React.PropTypes.func
     }
 
     /**
@@ -78,7 +84,8 @@ export default class Main extends React.Component {
      */
     static defaultProps = {
         ItemTemplate: ListItem,
-        FilterTemplate: FilterItem
+        FilterTemplate: FilterItem,
+        filterFunction: null
     }
 
     /**
@@ -109,13 +116,13 @@ export default class Main extends React.Component {
      * Called when a filter button is clicked
      * Triggers a `setState`
      * @binding Class
-     * @param toggleFilter <String> the filter name to toggle
+     * @param id <String> the filter id to toggle
      */
-    onFilter = ( toggleFilter: string ) => {
+    onFilter = ( id: string ) => {
         this.setState({
             filters: this.state.filters.map( filter => {
                 // Bail on other filters
-                if ( filter.id !== toggleFilter ) {
+                if ( filter.id !== id ) {
                     return filter
                 }
 
@@ -135,6 +142,17 @@ export default class Main extends React.Component {
             return filter.active
         })
 
+        var listProps = {
+            items: this.props.items,
+            filters: activeFilters,
+            ItemTemplate: this.props.ItemTemplate
+        }
+
+        // Only add it if it exists
+        if ( this.props.filterFunction ) {
+            listProps.filterFunction = this.props.filterFunction
+        }
+
         return (
             <div className="DLR-List">
                 <Filters
@@ -142,11 +160,7 @@ export default class Main extends React.Component {
                     filters={ this.state.filters }
                     FilterTemplate={ this.props.FilterTemplate }
                 />
-                <List
-                    items={ this.props.items }
-                    filters={ activeFilters }
-                    ItemTemplate={ this.props.ItemTemplate }
-                />
+                <List {...listProps } />
             </div>
         )
     }

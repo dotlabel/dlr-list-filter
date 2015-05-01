@@ -41,7 +41,13 @@ export default class List extends React.Component {
          * Custom component to use for list items
          * @type <ListItem>
          */
-        ItemTemplate: React.PropTypes.any
+        ItemTemplate: React.PropTypes.any,
+
+        /**
+         * Custom filtering function
+         * @type <function>
+         */
+        filterFunction: React.PropTypes.func
     }
 
     /**
@@ -49,7 +55,29 @@ export default class List extends React.Component {
      * @static
      */
     static defaultProps = {
-        ItemTemplate: ListItem
+        ItemTemplate: ListItem,
+
+        /**
+         * Handles the filtering
+         * @type <function>
+         * @param item <Object> called for each this.props.items
+         */
+        filterFunction: function( item ) {
+            // Special case: no filtering actually means show all items
+            if ( !this.props.filters.length ) {
+                return true
+            }
+
+            var active = false
+
+            this.props.filters.forEach( filter => {
+                if ( item.hasOwnProperty( filter.id ) && item[ filter.id ] ) {
+                    active = true
+                }
+            })
+
+            return active
+        }
     }
 
     /**
@@ -65,25 +93,12 @@ export default class List extends React.Component {
      */
     render() {
         // Filter by items that pass filtering and create items from ListItem template
-        var items = this.props.items.filter( item => {
-            // Special case: no filtering actually means show all items
-            if ( !this.props.filters.length ) {
-                return true
-            }
-
-            var active = false
-
-            this.props.filters.forEach( filter => {
-                if ( item.hasOwnProperty( filter.id ) && item[ filter.id ] ) {
-                    active = true
-                }
+        var items = this.props.items
+            .filter( this.props.filterFunction.bind( this ) )
+            .map( ( item, index ) => {
+                // Pass all object properties to the template component
+                return <this.props.ItemTemplate key={ 'item' + index } {...item} />
             })
-
-            return active
-        }).map( ( item, index ) => {
-            // Pass all object properties to the template component
-            return <this.props.ItemTemplate key={ 'item' + index } {...item} />
-        })
 
         return (
             <ul className="DLR-List-container">
