@@ -1,7 +1,8 @@
 import _List from './list'
-import _ListItem from './item'
 import _ListFilter from './filters'
 
+import _ListItem from './tmpl/item'
+import _ListFilterItem from './tmpl/filter'
 
 
 /**
@@ -19,6 +20,10 @@ export const ListItem = _ListItem
  */
 export const ListFilter = _ListFilter
 
+/**
+ * Export List Filter Item Component
+ */
+export const ListFilterItem = _ListFilterItem
 
 
 /**
@@ -27,5 +32,6 @@ export const ListFilter = _ListFilter
 export default {
     List: _List,
     ListItem: _ListItem,
-    ListFilter: _ListFilter
+    ListFilter: _ListFilter,
+    ListFilterItem: _ListFilterItem
 }

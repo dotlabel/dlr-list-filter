@@ -22,7 +22,7 @@ export default class ListItem extends React.Component {
      */
     render() {
         return (
-            <li>{ this.props.name } <span>{ this.props.active ? '✔︎' : '✘' }</span></li>
+            <li>{ this.props.name }</li>
         )
     }
 }

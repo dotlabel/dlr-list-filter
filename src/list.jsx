@@ -22,7 +22,7 @@
 
 
 import React from 'react'
-import ListItem from './item'
+import ListItem from './tmpl/item'
 import Filters from './filters'
 
 
@@ -54,7 +54,7 @@ export default class List extends React.Component {
     static propTypes = {
         items: React.PropTypes.array.isRequired,
         filters: React.PropTypes.array.isRequired,
-        ItemTemplate: React.PropTypes.instanceOf( ListItem ),
+        ItemTemplate: React.PropTypes.any,
         FilterTemplate: React.PropTypes.any
     }
 

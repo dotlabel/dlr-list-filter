@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FilterButton from './filterButton'
+import FilterButton from './tmpl/filter'
 
 /**
  * Filters
