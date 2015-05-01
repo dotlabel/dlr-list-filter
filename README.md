@@ -3,6 +3,7 @@
 > Filterable and sortable list react component
 
 
+
 Requires polyfills to work correctly, use either babel or corejs directly
 
 ```
