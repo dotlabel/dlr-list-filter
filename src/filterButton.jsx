@@ -6,8 +6,13 @@ export default class DefaultFilterButton extends React.Component {
     }
 
     render() {
+        var classes = classNames({
+            'DLR-List-FilterItem': true,
+            'active': this.props.active
+        })
+
         return (
-            <li>
+            <li key={ this.props.key } className={ classes }>
                 <button onClick={ this.props.onClick }>
                     <span>{ this.props.name }</span>
                     <span>{ this.props.active ? '✔︎' : '✘' }</span>

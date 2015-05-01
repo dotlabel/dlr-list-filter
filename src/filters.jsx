@@ -41,17 +41,17 @@ export default class Filters extends React.Component {
      */
     render() {
         // Create filter buttons and route click event
-        var filterButtons = this.props.filters.map( filter => {
+        var filterButtons = this.props.filters.map( ( filter, index ) => {
             var clickHandler = event => {
                 this.props.onFilter( filter.name )
             }
             return (
                 <this.props.FilterTemplate
+                    key={ 'filterItem' + index }
                     onClick={ clickHandler }
                     { ...filter }
                 />
             )
-
         })
 
         return (
