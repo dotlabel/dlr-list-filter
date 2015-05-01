@@ -1,4 +1,3 @@
-
 import _List from './list'
 
 export var List = _List

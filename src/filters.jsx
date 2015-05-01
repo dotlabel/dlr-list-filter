@@ -1,14 +1,6 @@
 import React from 'react'
 
 
-function _createFilter( filter ) {
-    return {
-        name: filter,
-        active: false
-    }
-}
-
-
 export default class Filters extends React.Component {
     static propTypes = {
         filters: React.PropTypes.array.isRequired,

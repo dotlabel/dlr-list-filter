@@ -45,23 +45,37 @@ export default class List extends React.Component {
         })
     }
 
-    getFilter( key ) {
-        return this.state.filters.filter( filter => {
-            return filter.name === key
-        })
-    }
-
     render() {
+        var activeFilters = this.state.filters.filter( filter => {
+            return filter.active
+        })
+
         var items = this.props.items.filter( item => {
-            // return item.active === this.getFilter( item.name )[ 0 ].active
-            return true
+            // Special case: no filtering actually means show all items
+            if ( !activeFilters.length ) {
+                return true
+            }
+
+            var active = false
+
+            activeFilters.forEach( filter => {
+                if ( item.hasOwnProperty( filter.name ) && item[ filter.name ] ) {
+                    active = true
+                }
+            })
+
+            return active
+
         }).map( item => {
             return <ListItem {...item} />
         })
 
         return (
             <div>
-                <Filters onFilter={ this.onFilter } filters={ this.state.filters } />
+                <Filters
+                    onFilter={ this.onFilter }
+                    filters={ this.state.filters }
+                />
                 <ul>
                     { items }
                 </ul>
