@@ -53,7 +53,8 @@ export default class List extends React.Component {
      */
     static propTypes = {
         items: React.PropTypes.array.isRequired,
-        filters: React.PropTypes.array.isRequired
+        filters: React.PropTypes.array.isRequired,
+        ItemTemplate: React.PropTypes.instanceOf( ListItem )
     }
 
     /**
@@ -61,7 +62,7 @@ export default class List extends React.Component {
      * Default React properties
      */
     static defaultProps = {
-
+        ItemTemplate: ListItem
     }
 
     /**
@@ -133,7 +134,7 @@ export default class List extends React.Component {
             return active
         }).map( item => {
             // Pass all object properties to the template component
-            return <ListItem {...item} />
+            return <this.props.ItemTemplate {...item} />
         })
 
         return (

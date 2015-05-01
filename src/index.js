@@ -1,6 +1,6 @@
 import _List from './list'
 import _ListItem from './item'
-import _ListFilter from './filter'
+import _ListFilter from './filters'
 
 
 
