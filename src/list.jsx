@@ -54,7 +54,8 @@ export default class List extends React.Component {
     static propTypes = {
         items: React.PropTypes.array.isRequired,
         filters: React.PropTypes.array.isRequired,
-        ItemTemplate: React.PropTypes.instanceOf( ListItem )
+        ItemTemplate: React.PropTypes.instanceOf( ListItem ),
+        FilterTemplate: React.PropTypes.instanceOf( React.Component )
     }
 
     /**
@@ -138,12 +139,13 @@ export default class List extends React.Component {
         })
 
         return (
-            <div>
+            <div className="DLR-List">
                 <Filters
                     onFilter={ this.onFilter }
                     filters={ this.state.filters }
+                    FilterTemplate={ this.props.FilterTemplate }
                 />
-                <ul>
+                <ul className="DLR-List-container">
                     { items }
                 </ul>
             </div>

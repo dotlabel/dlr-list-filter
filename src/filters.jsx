@@ -1,5 +1,6 @@
 import React from 'react'
 
+import FilterButton from './filterButton'
 
 /**
  * Filters
@@ -15,7 +16,8 @@ export default class Filters extends React.Component {
      */
     static propTypes = {
         filters: React.PropTypes.array.isRequired,
-        onFilter: React.PropTypes.func.isRequired
+        onFilter: React.PropTypes.func.isRequired,
+        FilterTemplate: React.PropTypes.any
     }
 
     /**
@@ -23,7 +25,7 @@ export default class Filters extends React.Component {
      * Default React properties
      */
     static defaultProps = {
-
+        FilterTemplate: FilterButton
     }
 
     /**
@@ -44,17 +46,16 @@ export default class Filters extends React.Component {
                 this.props.onFilter( filter.name )
             }
             return (
-                <li>
-                    <button onClick={ clickHandler }>
-                        <span>{ filter.name }</span>
-                        <span>{ filter.active ? '✔︎' : '✘' }</span>
-                    </button>
-                </li>
+                <this.props.FilterTemplate
+                    onClick={ clickHandler }
+                    { ...filter }
+                />
             )
+
         })
 
         return (
-            <ul>
+            <ul className="DLR-List-FilterList">
                 { filterButtons }
             </ul>
         )
