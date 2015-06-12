@@ -54,26 +54,44 @@ export default class Filters extends React.Component {
     }
 
     /**
+     * Render a single filter item
+     */
+    renderFilterItem = filter => {
+        var clickHandler = event => {
+            this.props.onFilter( filter.keypath )
+        }
+        return (
+            <this.props.FilterTemplate
+                key={ filter.keypath.join( '-' ) }
+                onClick={ clickHandler }
+                { ...filter }
+            />
+        )
+    }
+
+    /**
      * React render lifecycle method
      */
     render() {
-        // Create filter buttons and route click event
-        var filterItems = this.props.filters.map( ( filter, index ) => {
-            var clickHandler = event => {
-                this.props.onFilter( filter.id )
-            }
+        // Map filter groups to filter buttons
+        let keypath = [ null, null ]
+        let filters = this.props.filters.map( ( filterGroup, groupKey ) => {
             return (
-                <this.props.FilterTemplate
-                    key={ 'filterItem' + index }
-                    onClick={ clickHandler }
-                    { ...filter }
-                />
+                <ul className="DLR-List-FilterGroup">
+                    { filterGroup.map( ( value, filterKey ) => {
+                        return this.renderFilterItem({
+                            keypath: [ groupKey, filterKey ],
+                            id: filterKey,
+                            active: value
+                        })
+                    })}
+                </ul>
             )
         })
 
         return (
             <ul className="DLR-List-FilterList">
-                { filterItems }
+                { filters }
             </ul>
         )
     }

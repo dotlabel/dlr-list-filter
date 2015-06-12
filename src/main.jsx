@@ -22,10 +22,14 @@
 
 
 import React from 'react'
+import Immutable from 'immutable'
+import Cursor from 'immutable/contrib/cursor'
+
 import Filters from './filters'
 import List from './list'
 
 import FilterStruct from './util/filterStruct'
+import FilterGroup from './util/filterGroup'
 import ListItem from './tmpl/item'
 import FilterItem from './tmpl/filter'
 
@@ -52,9 +56,8 @@ export default class Main extends React.Component {
         items: React.PropTypes.array.isRequired,
 
         /**
-         * Property names to filter by. Transformed into FilterObjects and
-         * passed to <Filters />
-         * @type <Array:String>
+         * List of filter groups
+         * @type <Array:Object>
          * @required
          */
         filters: React.PropTypes.array.isRequired,
@@ -97,11 +100,11 @@ export default class Main extends React.Component {
         /**
          * Mapped from filters property declaration
          * @type <Array:Object>
-         * @example [{ id: 'foo', active: false }, { id: 'bar', active: true }]
+         * @example [ [{ id: 'foo', active: false }], [{ id: 'bar', active: true }] ]
          */
-        filters: this.props.filters.map( filter => {
-            return new FilterStruct( filter )
-        })
+        // filters: this.props.filters.map( group => new FilterGroup( group ) )
+        // filters: Immutable.fromJS( this.props.filters.map( group => new FilterGroup( group ) ) )
+        filters: Immutable.fromJS( this.props.filters )
     }
 
     /**
@@ -110,26 +113,21 @@ export default class Main extends React.Component {
      */
     constructor( props: object ) {
         super( props )
+
+
     }
 
     /**
      * Called when a filter button is clicked
      * Triggers a `setState`
      * @binding Class
-     * @param id <String> the filter id to toggle
+     * @param filter <FilterStruct> the filter to toggle
      */
-    onFilter = ( id: string ) => {
-        this.setState({
-            filters: this.state.filters.map( filter => {
-                // Bail on other filters
-                if ( filter.id !== id ) {
-                    return filter
-                }
+    onFilter = ( filter: array ) => {
 
-                // Toggle active state
-                filter.active = !filter.active
-                return filter
-            })
+        // @TODO sort out this toggle
+        this.setState({
+            filters: this.state.filters.setIn( filter, !this.state.filters.getIn( filter ) )
         })
     }
 
@@ -137,14 +135,9 @@ export default class Main extends React.Component {
      * React render lifecycle method
      */
     render() {
-        // Grab only active filters
-        var activeFilters = this.state.filters.filter( filter => {
-            return filter.active
-        })
-
         var listProps = {
             items: this.props.items,
-            filters: activeFilters,
+            filters: this.state.filters,
             ItemTemplate: this.props.ItemTemplate
         }
 

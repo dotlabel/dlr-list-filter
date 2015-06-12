@@ -70,7 +70,7 @@ export default class List extends React.Component {
 
             var active = false
 
-            this.props.filters.forEach( filter => {
+            this.props.filters[ 0 ].forEach( filter => {
                 if ( item.hasOwnProperty( filter.id ) && item[ filter.id ] ) {
                     active = true
                 }
