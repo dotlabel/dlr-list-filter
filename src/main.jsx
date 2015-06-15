@@ -57,10 +57,10 @@ export default class Main extends React.Component {
 
         /**
          * List of filter groups
-         * @type <Array:Object>
+         * @type <Immutable Map:Object>
          * @required
          */
-        filters: React.PropTypes.array.isRequired,
+        filters: React.PropTypes.object.isRequired,
 
         /**
          * Custom item rendering component

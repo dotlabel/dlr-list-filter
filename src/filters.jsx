@@ -18,10 +18,10 @@ export default class Filters extends React.Component {
         /**
          * List of properties to filter by.
          * Empty list denotes no filtering.
-         * @type <Array:FilterStruct>
+         * @type <Immutable Map:FilterStruct>
          * @required
          */
-        filters: React.PropTypes.array.isRequired,
+        filters: React.PropTypes.object.isRequired,
 
         /**
          * Fired when the filter is actioned

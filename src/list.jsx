@@ -32,10 +32,10 @@ export default class List extends React.Component {
         /**
          * Active filters to include in the list.
          * Items that have the filter as a property pass the filtering algorithm.
-         * @type <Array:String>
+         * @type <Immutable Map:String>
          * @required
          */
-        filters: React.PropTypes.array.isRequired,
+        filters: React.PropTypes.object.isRequired,
 
         /**
          * Custom component to use for list items
