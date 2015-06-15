@@ -2,6 +2,7 @@
 
 > Filterable and sortable list react component
 
+_Now with added Immutability_
 
 
 Requires polyfills to work correctly, use either babel or corejs directly
