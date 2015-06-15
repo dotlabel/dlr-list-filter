@@ -125,6 +125,14 @@ export default class Main extends React.Component {
      */
     onFilter = ( filter: array ) => {
 
+        // No filter returns filters to their original state
+        if ( !filter ) {
+            this.setState({
+                filters: Immutable.fromJS( this.props.filters )
+            })
+            return
+        }
+
         // @TODO sort out this toggle
         this.setState({
             filters: this.state.filters.setIn( filter, !this.state.filters.getIn( filter ) )
@@ -152,6 +160,8 @@ export default class Main extends React.Component {
                     onFilter={ this.onFilter }
                     filters={ this.state.filters }
                     FilterTemplate={ this.props.FilterTemplate }
+                    shouldShowFilterGroupIDs={ this.props.shouldShowFilterGroupIDs }
+                    shouldShowClearButton={ this.props.shouldShowClearButton }
                 />
                 <List {...listProps } />
             </div>

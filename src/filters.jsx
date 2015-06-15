@@ -34,7 +34,19 @@ export default class Filters extends React.Component {
          * Custom filter item template
          * @type <FilterItem>
          */
-        FilterTemplate: React.PropTypes.any
+        FilterTemplate: React.PropTypes.any,
+
+        /**
+         * Should show filter group ids/titles
+         * @type <Boolean>
+         */
+        shouldShowFilterGroupIDs: React.PropTypes.bool,
+
+        /**
+         * Should show clear all filters button
+         * @type <Boolean>
+         */
+        shouldShowClearButton: React.PropTypes.bool
     }
 
     /**
@@ -42,7 +54,9 @@ export default class Filters extends React.Component {
      * @static
      */
     static defaultProps = {
-        FilterTemplate: FilterItem
+        FilterTemplate: FilterItem,
+        shouldShowFilterGroupIDs: true,
+        shouldShowClearButton: true
     }
 
     /**
@@ -70,29 +84,49 @@ export default class Filters extends React.Component {
     }
 
     /**
+     * Clear filters
+     */
+    clearFilters = () => {
+        this.props.onFilter( null )
+    }
+
+    /**
      * React render lifecycle method
      */
     render() {
         // Map filter groups to filter buttons
         let keypath = [ null, null ]
         let filters = this.props.filters.map( ( filterGroup, groupKey ) => {
+            let title = this.props.shouldShowFilterGroupIDs
+                ? <h2 className="DLR-List-FilterGroup-title">{{ groupKey }}</h2>
+                : ''
             return (
-                <ul className="DLR-List-FilterGroup">
-                    { filterGroup.map( ( value, filterKey ) => {
-                        return this.renderFilterItem({
-                            keypath: [ groupKey, filterKey ],
-                            id: filterKey,
-                            active: value
-                        })
-                    })}
-                </ul>
+                <div className="DLR-List-FilterGroup">
+                    {{ title }}
+                    <ul className="DLR-List-FilterGroup-list">
+                        { filterGroup.map( ( value, filterKey ) => {
+                            return this.renderFilterItem({
+                                keypath: [ groupKey, filterKey ],
+                                id: filterKey,
+                                active: value
+                            })
+                        })}
+                    </ul>
+                </div>
             )
         })
 
+        let clearButton = this.props.shouldShowClearButton
+            ? <button onClick={ this.clearFilters }>Clear</button>
+            : ''
+
         return (
-            <ul className="DLR-List-FilterList">
-                { filters }
-            </ul>
+            <div>
+                <ul className="DLR-List-FilterList">
+                    { filters }
+                </ul>
+                {{ clearButton }}
+            </div>
         )
     }
 }
