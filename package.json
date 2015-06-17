@@ -1,6 +1,6 @@
 {
   "name": "dlr-list-filter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Filterable and sortable high level list react component",
   "main": "lib/",
   "scripts": {
