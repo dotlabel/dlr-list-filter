@@ -154,7 +154,7 @@ export default class Main extends React.Component {
             }
 
             // Join, encode and return
-            return '?filter=' + window.encodeURI( activeKeys.join( '&' ) )
+            return '?filter=' + window.encodeURI( activeKeys.join( ',' ) )
         }
 
         function generateURL() {
