@@ -117,12 +117,12 @@ export default class Filters extends React.Component {
         })
 
         let clearButton = this.props.shouldShowClearButton
-            ? <button onClick={ this.clearFilters }>Clear</button>
+            ? <button className="DLR-List-FilterList-button" onClick={ this.clearFilters }>Clear</button>
             : ''
 
         return (
-            <div>
-                <ul className="DLR-List-FilterList">
+            <div className="DLR-List-FilterList">
+                <ul className="DLR-List-FilterList-list">
                     { filters }
                 </ul>
                 {{ clearButton }}
