@@ -78,7 +78,13 @@ export default class Main extends React.Component {
          * Custom filtering function
          * @type <function>
          */
-        filterFunction: React.PropTypes.func
+        filterFunction: React.PropTypes.func,
+
+        /**
+         * Updates query string
+         * @type <boolean>
+         */
+        updateQuery: React.PropTypes.bool
     }
 
     /**
@@ -88,7 +94,8 @@ export default class Main extends React.Component {
     static defaultProps = {
         ItemTemplate: ListItem,
         FilterTemplate: FilterItem,
-        filterFunction: null
+        filterFunction: null,
+        updateQuery: false
     }
 
     /**
@@ -113,8 +120,55 @@ export default class Main extends React.Component {
      */
     constructor( props: object ) {
         super( props )
+    }
 
+    /**
+     * Updates the query parameter in the URL without a refresh
+     */
+    updateQuery( filters ) {
+        if ( !window.location.href || !this.props.updateQuery || !window.history ) {
+            return
+        }
 
+        function generateFilterString() {
+            if ( !filters ) {
+                return ''
+            }
+
+            // Get active filter keys
+            let it = filters
+                .flatten()
+                .filter( f => f )
+                .keys()
+
+            // Create array of keys
+            let filter = it.next()
+            let activeKeys = []
+            while( !filter.done ) {
+                activeKeys.push( filter.value )
+                filter = it.next()
+            }
+
+            if ( !activeKeys.length ) {
+                return ''
+            }
+
+            // Join, encode and return
+            return '?filter=' + window.encodeURI( activeKeys.join( '&' ) )
+        }
+
+        function generateURL() {
+            let href = window.location.href.match( /^.*(?=(\?))/ )
+
+            return !href || !href.length
+                ? window.location.href + generateFilterString()
+                : href[0] + generateFilterString()
+        }
+
+        let URL = generateURL()
+        window.history.pushState({
+            path: URL
+        }, '', URL )
     }
 
     /**
@@ -153,6 +207,9 @@ export default class Main extends React.Component {
         if ( this.props.filterFunction ) {
             listProps.filterFunction = this.props.filterFunction
         }
+
+        // Update query param on change
+        this.updateQuery( this.state.filters )
 
         return (
             <div className="DLR-List">
