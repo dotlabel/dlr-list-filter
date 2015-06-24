@@ -91,7 +91,14 @@ export default class Main extends React.Component {
          * Adds a filter title to the list of filters
          * @type <String>
          */
-        filterTitle: React.PropTypes.string
+        filterTitle: React.PropTypes.string,
+
+        /**
+         * Callback to trigger when a filter event occurs
+         * Callback param is the filtered list of items
+         * @type <Function>
+         */
+        onFilter: React.PropTypes.func
     }
 
     /**
@@ -103,7 +110,8 @@ export default class Main extends React.Component {
         FilterTemplate: FilterItem,
         filterFunction: null,
         updateQuery: false,
-        filterTitle: null
+        filterTitle: null,
+        onFilter: function() {}
     }
 
     /**
@@ -208,7 +216,8 @@ export default class Main extends React.Component {
         var listProps = {
             items: this.props.items,
             filters: this.state.filters,
-            ItemTemplate: this.props.ItemTemplate
+            ItemTemplate: this.props.ItemTemplate,
+            onFilter: this.props.onFilter
         }
 
         // Only add it if it exists

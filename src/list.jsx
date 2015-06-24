@@ -47,7 +47,14 @@ export default class List extends React.Component {
          * Custom filtering function
          * @type <function>
          */
-        filterFunction: React.PropTypes.func
+        filterFunction: React.PropTypes.func,
+
+        /**
+         * Callback to trigger when a filter event occurs
+         * Callback param is the filtered list of items
+         * @type <Function>
+         */
+        onFilter: React.PropTypes.func
     }
 
     /**
@@ -56,6 +63,7 @@ export default class List extends React.Component {
      */
     static defaultProps = {
         ItemTemplate: ListItem,
+        onFilter: function() {},
 
         /**
          * Handles the filtering
@@ -92,13 +100,18 @@ export default class List extends React.Component {
      * React render lifecycle method
      */
     render() {
-        // Filter by items that pass filtering and create items from ListItem template
-        var items = this.props.items
+        // Filter by items that pass filtering
+        let activeItems = this.props.items
             .filter( this.props.filterFunction.bind( this ) )
-            .map( ( item, index ) => {
-                // Pass all object properties to the template component
-                return <this.props.ItemTemplate key={ 'item' + index } {...item} />
-            })
+
+        // create items from ListItem template
+        let items = activeItems.map( ( item, index ) => {
+            // Pass all object properties to the template component
+            return <this.props.ItemTemplate key={ 'item' + index } {...item} />
+        })
+
+        // Call the callback to let listeners know a filter event has taken place
+        this.props.onFilter( activeItems )
 
         return (
             <ul className="DLR-List-container">
