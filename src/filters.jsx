@@ -46,7 +46,13 @@ export default class Filters extends React.Component {
          * Should show clear all filters button
          * @type <Boolean>
          */
-        shouldShowClearButton: React.PropTypes.bool
+        shouldShowClearButton: React.PropTypes.bool,
+
+        /**
+         * Adds a filter title to the list of filters
+         * @type <String>
+         */
+        filterTitle: React.PropTypes.string
     }
 
     /**
@@ -56,7 +62,8 @@ export default class Filters extends React.Component {
     static defaultProps = {
         FilterTemplate: FilterItem,
         shouldShowFilterGroupIDs: true,
-        shouldShowClearButton: true
+        shouldShowClearButton: true,
+        filterTitle: null
     }
 
     /**
@@ -120,8 +127,13 @@ export default class Filters extends React.Component {
             ? <button className="DLR-List-FilterList-button" onClick={ this.clearFilters }>Clear</button>
             : ''
 
+        let filtersTitle = this.props.filterTitle
+            ? <h3 className="DLR-List-FilterList-title">{ this.props.filterTitle }</h3>
+            : ''
+
         return (
             <div className="DLR-List-FilterList">
+                {{ filtersTitle }}
                 <ul className="DLR-List-FilterList-list">
                     { filters }
                 </ul>

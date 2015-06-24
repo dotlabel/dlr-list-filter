@@ -82,9 +82,16 @@ export default class Main extends React.Component {
 
         /**
          * Updates query string
+         * @TODO currently unused
          * @type <boolean>
          */
-        updateQuery: React.PropTypes.bool
+        updateQuery: React.PropTypes.bool,
+
+        /**
+         * Adds a filter title to the list of filters
+         * @type <String>
+         */
+        filterTitle: React.PropTypes.string
     }
 
     /**
@@ -95,7 +102,8 @@ export default class Main extends React.Component {
         ItemTemplate: ListItem,
         FilterTemplate: FilterItem,
         filterFunction: null,
-        updateQuery: false
+        updateQuery: false,
+        filterTitle: null
     }
 
     /**
@@ -219,6 +227,7 @@ export default class Main extends React.Component {
                     FilterTemplate={ this.props.FilterTemplate }
                     shouldShowFilterGroupIDs={ this.props.shouldShowFilterGroupIDs }
                     shouldShowClearButton={ this.props.shouldShowClearButton }
+                    filterTitle={ this.props.filterTitle }
                 />
                 <List {...listProps } />
             </div>
