@@ -63,7 +63,8 @@ export default class Filters extends React.Component {
         FilterTemplate: FilterItem,
         shouldShowFilterGroupIDs: true,
         shouldShowClearButton: true,
-        filterTitle: null
+        filterTitle: null,
+        clearFilterButtonLabel: 'Clear'
     }
 
     /**
@@ -124,7 +125,7 @@ export default class Filters extends React.Component {
         })
 
         let clearButton = this.props.shouldShowClearButton
-            ? <button className="DLR-List-FilterList-button" onClick={ this.clearFilters }>Clear</button>
+            ? <button className="DLR-List-FilterList-button" onClick={ this.clearFilters }>{ this.props.clearFilterButtonLabel }</button>
             : ''
 
         let filtersTitle = this.props.filterTitle
