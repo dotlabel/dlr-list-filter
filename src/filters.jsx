@@ -52,7 +52,13 @@ export default class Filters extends React.Component {
          * Adds a filter title to the list of filters
          * @type <String>
          */
-        filterTitle: React.PropTypes.string
+        filterTitle: React.PropTypes.string,
+        
+        /**
+         * Sets the label of the clear filters button
+         * @type <String>
+         */
+        clearFilterButtonLabel: React.PropTypes.string
     }
 
     /**

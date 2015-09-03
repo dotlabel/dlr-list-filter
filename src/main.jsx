@@ -92,6 +92,12 @@ export default class Main extends React.Component {
          * @type <String>
          */
         filterTitle: React.PropTypes.string,
+        
+        /**
+         * Sets the label of the clear filters button
+         * @type <String>
+         */
+        clearFilterButtonLabel: React.PropTypes.string,
 
         /**
          * Callback to trigger when a filter event occurs
@@ -111,6 +117,7 @@ export default class Main extends React.Component {
         filterFunction: null,
         updateQuery: false,
         filterTitle: null,
+        clearFilterButtonLabel: null,
         onFilter: function() {}
     }
 
@@ -236,7 +243,8 @@ export default class Main extends React.Component {
                     FilterTemplate={ this.props.FilterTemplate }
                     shouldShowFilterGroupIDs={ this.props.shouldShowFilterGroupIDs }
                     shouldShowClearButton={ this.props.shouldShowClearButton }
-                    filterTitle={ this.props.filterTitle }
+	                filterTitle={ this.props.filterTitle }
+                	clearFilterButtonLabel={ this.props.clearFilterButtonLabel }
                 />
                 <List {...listProps } />
             </div>
